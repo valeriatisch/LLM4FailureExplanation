@@ -55,7 +55,10 @@ Install direnv and run `direnv allow .` inside the repo. That is what the `.envr
    OPENAI_API_KEY=<your openai api key>
    ```
    
-   Find an example in `.env.example`.
+   Find an example in `.env.example`. <br>
+   Note:
+   - The GitHub Token needs to have permissions to read and write issues on this repository.
+   - The OpenAI API Key can be generated [here](https://platform.openai.com/api-keys). You need to have a payment method set.
 
 5. You can run the app with:
 
