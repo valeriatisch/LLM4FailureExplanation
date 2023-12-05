@@ -16,6 +16,11 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 
 def main():
+    # TODO:
+    #  idea1: explain failed workflow as comment in PR
+    #  idea2: if user comments on GPTs answer with question, answer, otherwise ignore
+    #   -> preserve conversation context for asynchronous conversations
+    #      Allows us to preprocess the context before resuming the conversation
     logging.info("Starting BugXplainer")
     github_client = GitHubClient(gh_token, repo)
     chatgpt_client = ChatGPTClient(api_key)
