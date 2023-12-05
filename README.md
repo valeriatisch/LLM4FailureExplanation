@@ -63,7 +63,7 @@ Install direnv and run `direnv allow .` inside the repo. That is what the `.envr
 5. You can run the app with:
 
    ```bash
-   python run app.py
+   python main.py
    ```
 
 ## Development 🚀
