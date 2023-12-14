@@ -35,6 +35,7 @@ def main():
                 logging.info(f"Empty issue, skipping {latest_issue}")
                 continue
             response = chatgpt_client.generate_response(issue_content)
+            github_client.set_gpt_response(latest_issue, response)
             github_client.post_comment(
                 latest_issue,
                 f"This is an automated comment by ChatGPT (version: gpt-3.5-turbo). \n\n"
@@ -42,6 +43,14 @@ def main():
             )
             logging.info("Response generated and posted")
             last_checked_issue = latest_issue
+        issues = github_client.issues
+        # TODO: track issues that have been responded to for new comments
+        if issues:
+            for issue_number in issues:
+                comments = github_client.get_issue_comments(issue_number)
+                user_response = github_client.find_user_response(comments)
+                print(user_response)
+                # TODO: put whole conversation together, give to GPT & it should only respond if it's a question
         time.sleep(2)
 
 
