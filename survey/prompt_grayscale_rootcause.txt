@@ -1,0 +1,14 @@
+The source code for the getPaint method within the GrayPaintScale class seems logically correct in terms of 
+calculating the shade of gray based on the provided value. However, there's a subtle issue with how the shade of gray (the gray level) is computed,
+particularly in relation to how the input value is constrained within the bounds before calculating the gray level:
+
+	int g = (int) ((value - this.lowerBound) / (this.upperBound - this.lowerBound) * 255.0);
+	
+The issue is not directly with the use or definition of the variable value itself but with a logical oversight.
+Before computing the gray level (g), there's an attempt to ensure that value falls within the lowerBound and upperBound:
+
+	double v = Math.max(value, this.lowerBound);
+	v = Math.min(v, this.upperBound);
+	
+However, after this adjustment, the variable v is not used in the calculation.
+Instead, the original value variable is used. If value is outside the specified bounds, the calculation for g can result in incorrect gray levels.

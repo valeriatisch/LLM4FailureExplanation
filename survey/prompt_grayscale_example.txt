@@ -1,0 +1,24 @@
+Given the original implementation of the getPaint method in the GrayPaintScale class,
+an issue could arise when the input value is outside the established bounds of the scale.
+For the sake of demonstration, consider the following scenario:
+
+lowerBound is set to 0.0
+upperBound is set to 1.0
+An input value for getPaint method is provided as 1.5
+
+In this scenario, the intention is for any value provided to getPaint that falls outside the 0.0 to 1.0 range to be 
+adjusted to the nearest bound before calculating the gray scale value. This means that a value of 1.5 should be treated as if it were 1.0,
+translating to a completely white color (since 1.0 represents the upper bound and thus the lightest possible shade of gray, or white).
+
+However, due to the bug where the adjusted value v is not used in the calculation, the code proceeds to incorrectly
+calculate the shade of gray using the original value (1.5 in this case), like so:
+
+	int g = (int) ((1.5 - 0.0) / (1.0 - 0.0) * 255.0);
+
+This results in g being calculated as:
+
+	g = (int) ((1.5 / 1.0) * 255.0) = (int) (1.5 * 255.0) = 382.5;
+
+The cast to int truncates the decimal, yielding g = 382. However, when this value is passed to the Color constructor,
+Java internally clamps the color component values to within the valid range of 0 to 255. Therefore, even though g = 382 exceeds the valid range
+for a color component, the resulting color will be clamped to (255, 255, 255), which is white.
