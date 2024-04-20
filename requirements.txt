@@ -2,3 +2,8 @@ requests
 python-dotenv
 openai
 python-dateutil
+jupyter
+pandas
+matplotlib
+seaborn
+pathlib
